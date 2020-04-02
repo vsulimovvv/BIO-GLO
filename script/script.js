@@ -25,7 +25,6 @@ const popup = () => {
     popupCheck.style.display = 'block';
   });
 
-  
   consultationBtn.addEventListener('click', () => {
     popupСonsultation.style.display = 'block';
   });
@@ -156,9 +155,6 @@ const calculatorAcc = () => {
     panelCollapse = accordionCalc.querySelectorAll('.panel-collapse'),
     panelHeading = accordionCalc.querySelectorAll('.panel-heading');
 
-  console.log(constructBtn);
-
-
   const toggleCalc = () => {
     for (let i = 0; i < panelHeading.length; i++) {
       panelHeading[i].onclick = function (event) {
@@ -173,9 +169,10 @@ const calculatorAcc = () => {
   toggleCalc();
 
   const nextStep = () => {
+
     constructBtn.forEach(item => {
       item.addEventListener('click', event => {
-        panelCollapse.classList.toggle('in');
+        event.target.closest('.panel-collapse').classList.remove('in');
       });
     });
   }
@@ -224,8 +221,8 @@ const calculate = () => {
     }
     if (!myonoffswitch.checked) { // двух
       price = 15000;
-
     }
+
     // наличие днища
     if (myonoffswitchTwo.checked) { // если есть
       totalValue += 1000;
@@ -235,13 +232,13 @@ const calculate = () => {
 
     // диаметр
     if (diameterValue === 2) {
-      totalValue += (totalValue / 100) * 20;
+      totalValue += (totalValue / 10) * 20;
     }
     // если 2 или 3 кольа
     if (quantityRingsValue === 2) {
-      totalValue += (totalValue / 100) * 30;
+      totalValue += (totalValue / 10) * 30;
     } else if (quantityRingsValue === 3) {
-      totalValue += (totalValue / 100) * 50;
+      totalValue += (totalValue / 10) * 50;
     }
 
     // если двух
@@ -329,4 +326,3 @@ const sendForm = () => {
 };
 
 sendForm();
-
