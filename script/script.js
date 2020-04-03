@@ -8,6 +8,22 @@ const popup = () => {
     discountBtns = document.querySelectorAll('.discount-btn'),
     checkBtn = document.querySelector('.check-btn'),
     consultationBtn = document.querySelector('.consultation-btn');
+  const phoneUser = document.querySelectorAll('.phone-user'),
+    userName = document.querySelectorAll('input[name="user_name"]');
+
+  let nameOne = document.getElementById('name_1');
+
+  console.log("phoneUser", phoneUser);
+  console.log("userName", userName);
+
+  const reset = () => {
+    phoneUser.forEach((item) => {
+      item.value = '';
+    });
+    userName.forEach((item) => {
+      item.value = '';
+    });
+  };
 
   callBtns.forEach((item) => {
     item.addEventListener('click', () => {
@@ -30,14 +46,19 @@ const popup = () => {
   });
 
   popupCall.addEventListener('click', (event) => {
+
     let target = event.target;
+
     if (target.classList.contains('popup-close')) {
       popupCall.style.display = "none";
+      reset();
+
     } else {
       target = target.closest('.popup-content');
 
       if (!target) {
         popupCall.style.display = "none";
+        reset();
       }
     }
   });
@@ -46,10 +67,12 @@ const popup = () => {
     let target = event.target;
     if (target.classList.contains('popup-close')) {
       popupDiscount.style.display = "none";
+      reset();
     } else {
       target = target.closest('.popup-content');
       if (!target) {
         popupDiscount.style.display = "none";
+        reset();
       }
     }
   });
@@ -58,10 +81,12 @@ const popup = () => {
     let target = event.target;
     if (target.classList.contains('popup-close')) {
       popupCheck.style.display = "none";
+      reset();
     } else {
       target = target.closest('.popup-content');
       if (!target) {
         popupCheck.style.display = "none";
+        reset();
       }
     }
   });
@@ -70,10 +95,12 @@ const popup = () => {
     let target = event.target;
     if (target.classList.contains('popup-close')) {
       popupСonsultation.style.display = "none";
+      reset();
     } else {
       target = target.closest('.popup-content');
       if (!target) {
         popupСonsultation.style.display = "none";
+        reset();
       }
     }
   });
@@ -219,8 +246,8 @@ const calculate = () => {
       price = 15000;
     }
 
-     // наличие днища
-     if (myonoffswitchTwo.checked) { // если есть
+    // наличие днища
+    if (myonoffswitchTwo.checked) { // если есть
       totalValue += 1000;
     } else { // если нет
       totalValue += 2000;
@@ -246,7 +273,7 @@ const calculate = () => {
       totalValue += (totalValue / 100) * 30;
     } else if (!myonoffswitch.checked && quantityRingsSecondValue === 3) {
       totalValue += (totalValue / 100) * 50;
-    }   
+    }
 
     // общая цена
     total.value = totalValue + price;
