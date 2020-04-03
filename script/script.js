@@ -16,11 +16,30 @@ const popup = () => {
   console.log("phoneUser", phoneUser);
   console.log("userName", userName);
 
+  // const required = () => {
+  //   phoneUser.forEach((item) => {
+  //     if (item.value === '') {
+  //       console.log(1)
+  //     }
+  //     item.setAttribute("required", "required");
+  //     // console.log(item)
+  //   });
+  //   userName.forEach((item) => {
+  //     if (item.value === '') {
+  //       console.log(1)
+  //     }
+  //     item.setAttribute("required", "required");
+  //   });
+  // };
+  // required();
+
   const reset = () => {
     phoneUser.forEach((item) => {
+      // item.setAttribute("required", "required");
       item.value = '';
     });
     userName.forEach((item) => {
+      // item.setAttribute("required", "required");
       item.value = '';
     });
   };
@@ -28,24 +47,29 @@ const popup = () => {
   callBtns.forEach((item) => {
     item.addEventListener('click', () => {
       popupCall.style.display = 'block';
+      // required();
     });
   });
 
   discountBtns.forEach((item) => {
     item.addEventListener('click', () => {
       popupDiscount.style.display = 'block';
+      // required();
     });
   });
 
   checkBtn.addEventListener('click', () => {
     popupCheck.style.display = 'block';
+    // required();
   });
 
   consultationBtn.addEventListener('click', () => {
     popupСonsultation.style.display = 'block';
+    // required();
   });
 
   popupCall.addEventListener('click', (event) => {
+    // required();
 
     let target = event.target;
 
@@ -302,13 +326,12 @@ const sendForm = () => {
   const statusMessage = document.createElement('div');
   statusMessage.style.cssText = 'font-size: 2rem;';
 
-
   form.forEach((item) => {
 
     item.addEventListener('submit', (event) => {
-
+      // required();
       event.preventDefault();
-      console.log(event.target)
+      console.log(event.target);
 
       item.appendChild(statusMessage);
       statusMessage.textContent = loadMessage;

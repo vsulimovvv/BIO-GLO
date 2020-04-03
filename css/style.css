@@ -918,7 +918,7 @@ header .logo img {
 }
 
 .popup {
-  display: none;
+  display: block;
   position: fixed;
   left: 0;
   top: 0;
