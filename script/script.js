@@ -320,7 +320,71 @@ const sendForm = () => {
     loadMessage = 'Загрузка...',
     successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
+  const form = document.querySelector('#myform');
+  // const input = document.querySelector('input[name="user_name"]').value;
+  console.log(form);
+
+  const statusMessage = document.createElement('div');
+  statusMessage.style.cssText = 'font-size: 2rem;';
+
+  // form.forEach((item) => {
+
+    form.addEventListener('submit', (event) => {
+      // required();
+      event.preventDefault();
+      console.log(event.target);
+
+      form.appendChild(statusMessage);
+      statusMessage.textContent = loadMessage;
+
+      const removeMessage = () => {
+        statusMessage.textContent = '';
+      }
+
+      const formData = new FormData(form);
+      let body = {};
+      formData.forEach((val, key) => {
+        body[key] = val;
+      });
+      postData(body)
+        .then((response) => {
+          if (response.status !== 200) {
+            throw new Error('status network not 200');
+          }
+          console.log(response);
+          statusMessage.textContent = successMessage;
+          setTimeout(removeMessage, 5000);
+        })
+        .catch(() => {
+          statusMessage.textContent = errorMessage;
+          setTimeout(removeMessage, 5000);
+        });
+        form.reset();
+    });
+
+    const postData = (body) => {
+      return fetch('./server.php', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      });
+    }
+  // });
+};
+
+sendForm();
+
+
+const sendFormQuestion = () => {
+
+  const errorMessage = 'Что то пошло не так...',
+    loadMessage = 'Загрузка...',
+    successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
+
   const form = document.querySelectorAll('form');
+  // const input = document.querySelector('input[name="user_name"]').value;
   console.log(form);
 
   const statusMessage = document.createElement('div');
@@ -358,7 +422,7 @@ const sendForm = () => {
           statusMessage.textContent = errorMessage;
           setTimeout(removeMessage, 5000);
         });
-      item.reset();
+        item.reset();
     });
 
     const postData = (body) => {
@@ -373,4 +437,4 @@ const sendForm = () => {
   });
 };
 
-sendForm();
+sendFormQuestion();
