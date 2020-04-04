@@ -1,14 +1,15 @@
 const popup = () => {
 
-  const popupCall = document.querySelector('.popup-call'),
+  const allPopap = document.querySelectorAll('.popup'),
+    popupCall = document.querySelector('.popup-call'),
     popupDiscount = document.querySelector('.popup-discount'),
     popupCheck = document.querySelector('.popup-check'),
     popupСonsultation = document.querySelector('.popup-consultation'),
     callBtns = document.querySelectorAll('.call-btn'),
     discountBtns = document.querySelectorAll('.discount-btn'),
     checkBtn = document.querySelector('.check-btn'),
-    consultationBtn = document.querySelector('.consultation-btn');
-  const phoneUser = document.querySelectorAll('.phone-user'),
+    consultationBtn = document.querySelector('.consultation-btn'),
+    phoneUser = document.querySelectorAll('.phone-user'),
     userName = document.querySelectorAll('input[name="user_name"]');
 
   const reset = () => {
@@ -19,91 +20,42 @@ const popup = () => {
       item.value = '';
     });
   };
-
+  
   callBtns.forEach((item) => {
     item.addEventListener('click', () => {
       popupCall.style.display = 'block';
     });
   });
-
   discountBtns.forEach((item) => {
     item.addEventListener('click', () => {
       popupDiscount.style.display = 'block';
     });
   });
-
   checkBtn.addEventListener('click', () => {
     popupCheck.style.display = 'block';
   });
-
   consultationBtn.addEventListener('click', () => {
     popupСonsultation.style.display = 'block';
   });
 
-  popupCall.addEventListener('click', (event) => {
-
-    let target = event.target;
-
-    if (target.classList.contains('popup-close')) {
-      event.preventDefault();
-      popupCall.style.display = "none";
-      reset();
-
-    } else {
-      target = target.closest('.popup-content');
-
-      if (!target) {
-        popupCall.style.display = "none";
+  allPopap.forEach(item => {
+    item.addEventListener('click', event => {
+      let target = event.target;
+      if (target.classList.contains('popup-close')) {
+        event.preventDefault();
+        item.style.display = "none";
         reset();
+      } else {
+        target = target.closest('.popup-content');
+        if (!target) {
+          item.style.display = "none";
+          reset();
+        }
       }
-    }
-  });
-
-  popupDiscount.addEventListener('click', (event) => {
-    let target = event.target;
-    if (target.classList.contains('popup-close')) {
-      event.preventDefault();
-      popupDiscount.style.display = "none";
-      reset();
-    } else {
-      target = target.closest('.popup-content');
-      if (!target) {
-        popupDiscount.style.display = "none";
-        reset();
-      }
-    }
-  });
-
-  popupCheck.addEventListener('click', (event) => {
-    let target = event.target;
-    if (target.classList.contains('popup-close')) {
-      event.preventDefault();
-      popupCheck.style.display = "none";
-      reset();
-    } else {
-      target = target.closest('.popup-content');
-      if (!target) {
-        popupCheck.style.display = "none";
-        reset();
-      }
-    }
-  });
-
-  popupСonsultation.addEventListener('click', (event) => {
-    let target = event.target;
-    if (target.classList.contains('popup-close')) {
-      event.preventDefault();
-      popupСonsultation.style.display = "none";
-      reset();
-    } else {
-      target = target.closest('.popup-content');
-      if (!target) {
-        popupСonsultation.style.display = "none";
-        reset();
-      }
-    }
+    });
   });
 };
+
 popup();
 
 // button more
@@ -169,56 +121,93 @@ const accordion = () => {
 };
 accordion();
 
-// calculator // аккардион
-const calculatorAcc = () => {
-  const accordionCalc = document.querySelector('#accordion'),
-    constructBtn = accordionCalc.querySelectorAll('.construct-btn'),
-    panelCollapse = accordionCalc.querySelectorAll('.panel-collapse'),
-    panelHeading = accordionCalc.querySelectorAll('.panel-heading');
-
-  const toggleCalc = () => {
-    for (let i = 0; i < panelHeading.length; i++) {
-      panelHeading[i].onclick = function (event) {
-        event.preventDefault();
-        for (let k = 0; k < panelCollapse.length; k++) {
-          panelCollapse[k].classList.remove('in')
-        }
-        panelCollapse[i].classList.toggle('in');
-      };
-    }
-  }
-  toggleCalc();
-
-  const nextStep = () => {
-
-    constructBtn.forEach(item => {
-      item.addEventListener('click', event => {
-        event.target.closest('.panel-collapse').classList.remove('in');
-      });
-    });
-  }
-  nextStep();
-
-  const checked = () => {
-    const well = document.getElementById('well');
-    well.style.display = 'none';
-    const myonoffswitch = document.getElementById('myonoffswitch');
-    myonoffswitch.addEventListener('change', () => {
-      if (myonoffswitch && myonoffswitch.checked) {
-        well.style.display = 'none';
-      } else if (!myonoffswitch.checked) {
-        well.style.display = 'inline-block';
-      }
-    });
-  }
-  checked();
-};
-
-calculatorAcc();
-
 // считалка
 const calculate = () => {
-  const accordion = document.querySelector('#accordion'),
+
+  // calculator // аккардион
+  const calculatorAcc = () => {
+    const accordionCalc = document.querySelector('#accordion'),
+      constructBtn = accordionCalc.querySelectorAll('.construct-btn'),
+      panelCollapse = accordionCalc.querySelectorAll('.panel-collapse'),
+      panelHeader = accordionCalc.querySelectorAll('.panel-heading'),
+      panelBody = accordionCalc.querySelectorAll('.panel-body'),
+      collapseOne = accordionCalc.querySelector('#collapseOne'),
+      collapseTwo = accordionCalc.querySelector('#collapseTwo'),
+      collapseThree = accordionCalc.querySelector('#collapseThree'),
+      collapseFour = accordionCalc.querySelector('#collapseFour');
+
+    const nextStep1 = () => {
+      for (let i = 0; i < constructBtn.length; i++) {
+        constructBtn[0].onclick = function () {
+          collapseOne.classList.remove('in');
+          collapseTwo.classList.add('in');
+        };
+      };
+    }
+    nextStep1();
+
+    const nextStep2 = () => {
+      for (let i = 0; i < constructBtn.length; i++) {
+        constructBtn[1].onclick = function () {
+          collapseTwo.classList.remove('in');
+          collapseThree.classList.add('in');
+        };
+      };
+    }
+    nextStep2();
+
+    const nextStep3 = () => {
+      for (let i = 0; i < constructBtn.length; i++) {
+        constructBtn[2].onclick = function () {
+          collapseThree.classList.remove('in');
+          collapseFour.classList.add('in');
+        };
+      };
+    }
+    nextStep3();
+
+    const nextStep4 = () => {
+      for (let i = 0; i < constructBtn.length; i++) {
+        constructBtn[3].onclick = function () {
+          collapseFour.classList.remove('in');
+          collapseOne.classList.add('in');
+        };
+      };
+    }
+    nextStep4();
+
+    const toggleCalc = () => {
+      for (let i = 0; i < panelHeader.length; i++) {
+        panelHeader[i].onclick = function (event) {
+          event.preventDefault();
+          for (let k = 0; k < panelCollapse.length; k++) {
+            panelCollapse[k].classList.remove('in')
+          }
+          panelCollapse[i].classList.toggle('in');
+        };
+      }
+    }
+    toggleCalc();
+
+    const checked = () => {
+      const well = document.getElementById('well');
+      well.style.display = 'none';
+      const myonoffswitch = document.getElementById('myonoffswitch');
+      myonoffswitch.addEventListener('change', () => {
+        if (myonoffswitch && myonoffswitch.checked) {
+          well.style.display = 'none';
+        } else if (!myonoffswitch.checked) {
+          well.style.display = 'inline-block';
+        }
+      });
+    }
+    checked();
+  };
+
+  calculatorAcc();
+
+  const constructBtn = document.querySelectorAll('.construct-btn'),
+    accordion = document.querySelector('#accordion'),
     total = document.querySelector('#calc-result'),
     quantityRings = document.querySelector('#quantity-rings'), // количество колец
     quantityRingsSecond = document.querySelector('#quantity-rings-two'), // количество колец
@@ -226,15 +215,16 @@ const calculate = () => {
     diameterSecond = document.getElementById('diameter-two'), // диаметр
     myonoffswitchTwo = document.querySelector('#myonoffswitch-two'), // есть/нет
     myonoffswitch = document.querySelector('#myonoffswitch'), // есть/нет
-    distance = document.querySelector('#distance'); // расстояние в метрах
+    distance = document.querySelector('#distance'), // расстояние в метрах
+    callBtn = document.querySelector('.call-btn');
 
   const countSum = () => {
-    let diameterValue = parseFloat(diameter.options[diameter.selectedIndex].value);
-    let diameterSecondValue = parseFloat(diameterSecond.options[diameterSecond.selectedIndex].value);
-    let quantityRingsValue = parseFloat(quantityRings.options[quantityRings.selectedIndex].value);
-    let quantityRingsSecondValue = parseFloat(quantityRingsSecond.options[quantityRingsSecond.selectedIndex].value);
-    let price = 0;
-    let totalValue = price;
+    let diameterValue = parseFloat(diameter.options[diameter.selectedIndex].value),
+      diameterSecondValue = parseFloat(diameterSecond.options[diameterSecond.selectedIndex].value),
+      quantityRingsValue = parseFloat(quantityRings.options[quantityRings.selectedIndex].value),
+      quantityRingsSecondValue = parseFloat(quantityRingsSecond.options[quantityRingsSecond.selectedIndex].value),
+      price = 0,
+      totalValue = price;
 
     // тип септика 
     if (myonoffswitch.checked) { //одно
@@ -278,31 +268,34 @@ const calculate = () => {
   }
   // countSum();
 
+  constructBtn.forEach((item) => {
+    item.addEventListener('click', countSum);
+  });
+
   accordion.addEventListener('change', () => {
     const target = event.target;
     if (target === distance || target === myonoffswitch || target === distance || target === quantityRings || target === diameter || target === myonoffswitch || target === myonoffswitchTwo || target === diameterSecond || target === quantityRingsSecond) {
       countSum();
     }
   })
-
-}
+  callBtn.addEventListener('click', () => {
+    total.value = '';
+  });
+};
 calculate();
 
 const sendFormQuestion = () => {
-
   const errorMessage = 'Что то пошло не так...',
     loadMessage = 'Загрузка...',
     successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
   const form = document.querySelector('#myform');
-  console.log(form);
 
   const statusMessage = document.createElement('div');
   statusMessage.style.cssText = 'font-size: 2rem;';
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
-    console.log(event.target);
 
     form.appendChild(statusMessage);
     statusMessage.textContent = loadMessage;
@@ -321,7 +314,6 @@ const sendFormQuestion = () => {
         if (response.status !== 200) {
           throw new Error('status network not 200');
         }
-        console.log(response);
         statusMessage.textContent = successMessage;
         setTimeout(removeMessage, 5000);
       })
@@ -351,7 +343,6 @@ const sendForm = () => {
     successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
   const form = document.querySelectorAll('.send');
-  console.log(form);
 
   const statusMessage = document.createElement('div');
   statusMessage.style.cssText = 'font-size: 2rem;';
@@ -360,7 +351,6 @@ const sendForm = () => {
 
     item.addEventListener('submit', (event) => {
       event.preventDefault();
-      console.log(event.target);
 
       item.appendChild(statusMessage);
       statusMessage.textContent = loadMessage;
@@ -379,7 +369,6 @@ const sendForm = () => {
           if (response.status !== 200) {
             throw new Error('status network not 200');
           }
-          console.log(response);
           statusMessage.textContent = successMessage;
           setTimeout(removeMessage, 5000);
         })
