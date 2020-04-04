@@ -78,7 +78,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-lg-offset-1 col-md-4 col-md-offset-1 col-sm-12">
-                    <form class="main-form text-center wow fadeInRight">
+                    <form class="main-form text-center wow fadeInRight send">
                         <h4>Заказать консультацию!</h4>
                         <p>Не знаете как построить канализацию? <br> Закажите <span>бесплатную</span> консультацию <br>
                             мы
@@ -111,7 +111,7 @@
                 </div>
                 <div class="col-lg-4 col-lg-offset-1 col-md-4 col-md-offset-1 col-sm-12 wow fadeInRight"
                     data-wow-delay="0.2s">
-                    <form class="capture-form text-center">
+                    <form class="capture-form text-center send">
                         <label for="name_2">Как к вам обращаться</label>
                         <input type="text" id="name_2" name="user_name" placeholder="Ваше имя">
                         <!--  -->
@@ -458,7 +458,7 @@
                     <p>Введите свой вопрос и в течении 15 минут я свяжусь с вами!</p>
                     <div class="director-form">
                         <!-- <form class="director-form"> -->
-                        <input type="text" name="user_quest" form="myform" placeholder="Введите свой вопрос">
+                        <input type="text" name="user_quest" form="myform" placeholder="Введите свой вопрос" required>
                         <!--  -->
                         <button class="button director-btn consultation-btn" name="submit" type="submit">Получить
                             консультацию
@@ -504,8 +504,8 @@
         <div class="popup-dialog">
             <div class="popup-content">
                 <div class="popup-form">
-                    <form class="capture-form text-center">
-                        <span class="circle"><button class="popup-close">&times;</button></span>
+                    <form class="capture-form text-center send">
+                        <span class="circle"><a class="popup-close">&times;</a></span>
                         <label for="name_1">Как к вам обращаться</label>
                         <input type="text" id="name_1" name="user_name" placeholder="Ваше имя" required>
                         <!--  -->
@@ -531,14 +531,14 @@
         <div class="popup-dialog">
             <div class="popup-content">
                 <div class="popup-form">
-                    <form class="capture-form text-center">
-                        <span class="circle"><button class="popup-close">&times;</button></span>
+                    <form class="capture-form text-center send">
+                        <span class="circle"><a class="popup-close">&times;</a></span>
                         <label for="name_11">Как к вам обращаться</label>
-                        <input type="text" id="name_11" name="user_name" placeholder="Ваше имя">
+                        <input type="text" id="name_11" name="user_name" placeholder="Ваше имя" required>
                         <!--  -->
                         <label for="phone_11">Ваш телефон для получения скидки</label>
                         <input class="phone-user" type="text" id="phone_11" name="user_phone"
-                            placeholder="+7(___)___-__-__">
+                            placeholder="+7(___)___-__-__" required>
                         <!--  -->
                         <button class="button capture-form-btn" name="submit" type="submit">Заказать со скидкой</button>
                         <p class="small">Вы получите расчет стоимости с учетом выбора <br>подходящего объема септика.
@@ -556,22 +556,24 @@
         <div class="popup-dialog">
             <div class="popup-content">
                 <div class="popup-form">
-                    <form class="capture-form text-center">
-                        <span class="circle"><button class="popup-close">&times;</button></span>
-                        <label for="name_12">Как к вам обращаться</label>
-                        <input type="text" id="name_12" name="user_name" placeholder="Ваше имя">
-                        <!--  -->
-                        <label for="phone_12">Ваш телефон для получения скидки</label>
-                        <input class="phone-user" type="text" id="phone_12" name="user_phone"
-                            placeholder="+7(___)___-__-__">
-                        <!--  -->
-                        <button class="button capture-form-btn" name="submit" type="submit">Получить чек-лист и
-                            скидку</button>
-                        <p class="small">Вы получите расчет стоимости с учетом выбора <br>подходящего объема септика.
-                            типа
-                            грунта, <br> расположения объектов на участке, уровня грунтовых <br> вод, типа фундамента
-                            дома и еще
-                            7 параметров</p>
+                    <form class="capture-form text-center send">
+                        <span class="circle"><a class="popup-close">&times;</a></span>
+                            <label for="name_12">Как к вам обращаться</label>
+                            <input type="text" id="name_12" name="user_name" placeholder="Ваше имя" required>
+                            <!--  -->
+                            <label for="phone_12">Ваш телефон для получения скидки</label>
+                            <input class="phone-user" type="text" id="phone_12" name="user_phone"
+                                placeholder="+7(___)___-__-__" required>
+                            <!--  -->
+                            <button class="button capture-form-btn" name="submit" type="submit">Получить чек-лист и
+                                скидку</button>
+                            <p class="small">Вы получите расчет стоимости с учетом выбора <br>подходящего объема
+                                септика.
+                                типа
+                                грунта, <br> расположения объектов на участке, уровня грунтовых <br> вод, типа
+                                фундамента
+                                дома и еще
+                                7 параметров</p>
                     </form>
                 </div>
             </div>
@@ -583,7 +585,7 @@
             <div class="popup-content">
                 <div class="popup-form">
                     <form class="capture-form text-center" id="myform">
-                        <span class="circle"><button class="popup-close">&times;</button></span>
+                        <span class="circle"><a class="popup-close">&times;</a></span>
                         <label for="name_13">Как к вам обращаться</label>
                         <input type="text" id="name_13" name="user_name" placeholder="Ваше имя" required>
                         <!--  -->

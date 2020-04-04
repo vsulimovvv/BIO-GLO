@@ -11,35 +11,11 @@ const popup = () => {
   const phoneUser = document.querySelectorAll('.phone-user'),
     userName = document.querySelectorAll('input[name="user_name"]');
 
-  let nameOne = document.getElementById('name_1');
-
-  console.log("phoneUser", phoneUser);
-  console.log("userName", userName);
-
-  // const required = () => {
-  //   phoneUser.forEach((item) => {
-  //     if (item.value === '') {
-  //       console.log(1)
-  //     }
-  //     item.setAttribute("required", "required");
-  //     // console.log(item)
-  //   });
-  //   userName.forEach((item) => {
-  //     if (item.value === '') {
-  //       console.log(1)
-  //     }
-  //     item.setAttribute("required", "required");
-  //   });
-  // };
-  // required();
-
   const reset = () => {
     phoneUser.forEach((item) => {
-      // item.setAttribute("required", "required");
       item.value = '';
     });
     userName.forEach((item) => {
-      // item.setAttribute("required", "required");
       item.value = '';
     });
   };
@@ -47,33 +23,29 @@ const popup = () => {
   callBtns.forEach((item) => {
     item.addEventListener('click', () => {
       popupCall.style.display = 'block';
-      // required();
     });
   });
 
   discountBtns.forEach((item) => {
     item.addEventListener('click', () => {
       popupDiscount.style.display = 'block';
-      // required();
     });
   });
 
   checkBtn.addEventListener('click', () => {
     popupCheck.style.display = 'block';
-    // required();
   });
 
   consultationBtn.addEventListener('click', () => {
     popupСonsultation.style.display = 'block';
-    // required();
   });
 
   popupCall.addEventListener('click', (event) => {
-    // required();
 
     let target = event.target;
 
     if (target.classList.contains('popup-close')) {
+      event.preventDefault();
       popupCall.style.display = "none";
       reset();
 
@@ -90,6 +62,7 @@ const popup = () => {
   popupDiscount.addEventListener('click', (event) => {
     let target = event.target;
     if (target.classList.contains('popup-close')) {
+      event.preventDefault();
       popupDiscount.style.display = "none";
       reset();
     } else {
@@ -104,6 +77,7 @@ const popup = () => {
   popupCheck.addEventListener('click', (event) => {
     let target = event.target;
     if (target.classList.contains('popup-close')) {
+      event.preventDefault();
       popupCheck.style.display = "none";
       reset();
     } else {
@@ -118,6 +92,7 @@ const popup = () => {
   popupСonsultation.addEventListener('click', (event) => {
     let target = event.target;
     if (target.classList.contains('popup-close')) {
+      event.preventDefault();
       popupСonsultation.style.display = "none";
       reset();
     } else {
@@ -130,7 +105,6 @@ const popup = () => {
   });
 };
 popup();
-
 
 // button more
 const more = () => {
@@ -314,77 +288,69 @@ const calculate = () => {
 }
 calculate();
 
-const sendForm = () => {
-
-  const errorMessage = 'Что то пошло не так...',
-    loadMessage = 'Загрузка...',
-    successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
-
-  const form = document.querySelector('#myform');
-  // const input = document.querySelector('input[name="user_name"]').value;
-  console.log(form);
-
-  const statusMessage = document.createElement('div');
-  statusMessage.style.cssText = 'font-size: 2rem;';
-
-  // form.forEach((item) => {
-
-    form.addEventListener('submit', (event) => {
-      // required();
-      event.preventDefault();
-      console.log(event.target);
-
-      form.appendChild(statusMessage);
-      statusMessage.textContent = loadMessage;
-
-      const removeMessage = () => {
-        statusMessage.textContent = '';
-      }
-
-      const formData = new FormData(form);
-      let body = {};
-      formData.forEach((val, key) => {
-        body[key] = val;
-      });
-      postData(body)
-        .then((response) => {
-          if (response.status !== 200) {
-            throw new Error('status network not 200');
-          }
-          console.log(response);
-          statusMessage.textContent = successMessage;
-          setTimeout(removeMessage, 5000);
-        })
-        .catch(() => {
-          statusMessage.textContent = errorMessage;
-          setTimeout(removeMessage, 5000);
-        });
-        form.reset();
-    });
-
-    const postData = (body) => {
-      return fetch('./server.php', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify(body)
-      });
-    }
-  // });
-};
-
-sendForm();
-
-
 const sendFormQuestion = () => {
 
   const errorMessage = 'Что то пошло не так...',
     loadMessage = 'Загрузка...',
     successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
-  const form = document.querySelectorAll('form');
-  // const input = document.querySelector('input[name="user_name"]').value;
+  const form = document.querySelector('#myform');
+  console.log(form);
+
+  const statusMessage = document.createElement('div');
+  statusMessage.style.cssText = 'font-size: 2rem;';
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    console.log(event.target);
+
+    form.appendChild(statusMessage);
+    statusMessage.textContent = loadMessage;
+
+    const removeMessage = () => {
+      statusMessage.textContent = '';
+    }
+
+    const formData = new FormData(form);
+    let body = {};
+    formData.forEach((val, key) => {
+      body[key] = val;
+    });
+    postData(body)
+      .then((response) => {
+        if (response.status !== 200) {
+          throw new Error('status network not 200');
+        }
+        console.log(response);
+        statusMessage.textContent = successMessage;
+        setTimeout(removeMessage, 5000);
+      })
+      .catch(() => {
+        statusMessage.textContent = errorMessage;
+        setTimeout(removeMessage, 5000);
+      });
+    form.reset();
+  });
+
+  const postData = (body) => {
+    return fetch('./server.php', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+  }
+};
+sendFormQuestion();
+
+const sendForm = () => {
+
+  const errorMessage = 'Что то пошло не так...',
+    loadMessage = 'Загрузка...',
+    successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
+
+  const form = document.querySelectorAll('.send');
   console.log(form);
 
   const statusMessage = document.createElement('div');
@@ -393,7 +359,6 @@ const sendFormQuestion = () => {
   form.forEach((item) => {
 
     item.addEventListener('submit', (event) => {
-      // required();
       event.preventDefault();
       console.log(event.target);
 
@@ -422,7 +387,7 @@ const sendFormQuestion = () => {
           statusMessage.textContent = errorMessage;
           setTimeout(removeMessage, 5000);
         });
-        item.reset();
+      item.reset();
     });
 
     const postData = (body) => {
@@ -437,4 +402,4 @@ const sendFormQuestion = () => {
   });
 };
 
-sendFormQuestion();
+sendForm();
