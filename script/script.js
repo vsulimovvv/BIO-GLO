@@ -20,7 +20,7 @@ const popup = () => {
       item.value = '';
     });
   };
-  
+
   callBtns.forEach((item) => {
     item.addEventListener('click', () => {
       popupCall.style.display = 'block';
@@ -76,28 +76,20 @@ const more = () => {
 };
 more();
 
-// form-valid
 const formValid = () => {
-  const phoneValid = () => {
-    const phoneUser = document.querySelectorAll('.phone-user');
-    phoneUser.forEach((item) => {
-      item.addEventListener('input', () => {
-        item.value = item.value.replace(/[^\d+]/g, '');
-      });
-    });
-  }
-  phoneValid();
+  const phoneUser = document.querySelectorAll('.phone-user');
+  const nameUser = document.querySelectorAll('input[name="user_name"]');
 
-  // nameValid
-  const nameValid = () => {
-    const phoneUser = document.querySelectorAll('input[name="user_name"]');
-    phoneUser.forEach((item) => {
-      item.addEventListener('input', () => {
-        item.value = item.value.replace(/[^а-яА-Я]/ig, '');
-      });
+  phoneUser.forEach((item) => {
+    item.addEventListener('input', () => {
+      item.value = item.value.replace(/[^\d+]/g, '');
     });
-  }
-  nameValid();
+  });
+  nameUser.forEach((item) => {
+    item.addEventListener('input', () => {
+      item.value = item.value.replace(/[^а-яА-Я]/ig, '');
+    });
+  });
 }
 formValid();
 
