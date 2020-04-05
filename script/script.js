@@ -210,9 +210,7 @@ const calculate = () => {
     let diameterValue = parseFloat(diameter.options[diameter.selectedIndex].value),
       diameterSecondValue = parseFloat(diameterSecond.options[diameterSecond.selectedIndex].value),
       quantityRingsValue = parseFloat(quantityRings.options[quantityRings.selectedIndex].value),
-      quantityRingsSecondValue = parseFloat(quantityRingsSecond.options[quantityRingsSecond.selectedIndex].value),
-      price = 0,
-      totalValue = price;
+      quantityRingsSecondValue = parseFloat(quantityRingsSecond.options[quantityRingsSecond.selectedIndex].value);
 
     let diameterOneNew = document.querySelector('#diameter-one');
     let diameterTwoNew = document.querySelector('#diameter-two');
@@ -250,7 +248,17 @@ const calculate = () => {
       space.value = distance.value;
       result.value = total.value;
 
-      // тип септика 
+      // для подсчета стоимости
+      let totalValue = 0;
+      let price = 0;
+      let septicCounter = 0;
+      let firstWellDiameterCounter = 0;
+      let firstWellRingsCounter = 0;
+      let secondWellDiameterCounter = 0;
+      let secondWellRingsCounter = 0;
+
+
+
       if (myonoffswitch.checked) { //одно
         price = 10000;
         typeOfSeptic.value = 1;
@@ -262,33 +270,54 @@ const calculate = () => {
         quantityRingsTwoNew.value = quantityRingsSecondValue;
       }
       // наличие днища
-      if (myonoffswitchTwo.checked) { // если есть
-        totalValue += 1000;
+      if (myonoffswitch.checked && myonoffswitchTwo.checked) { // если есть
+        // totalValue;
+        septicCounter = 1000;
         bottomAvailability.value = 'yes';
-      } else { // если нет
-        totalValue += 2000;
+      }
+      if (!myonoffswitch.checked && !myonoffswitchTwo.checked) { // если нет
+        // totalValue;
+        septicCounter = 0;
         bottomAvailability.value = 'no';
       }
+      if (!myonoffswitch.checked && myonoffswitchTwo.checked) { // если есть
+        // totalValue;
+        septicCounter = 2000;
+        bottomAvailability.value = 'yes';
+      }
       // диаметр
-      if (diameterValue && diameterValue === 2) {
-        totalValue += (totalValue / 10) * 20;
+      if (diameterValue === 2) {
+        // totalValue = (totalValue / 10) * 20;
+        // let twentyPercent = (totalValue - 1) / 20;
+        totalValue += (price / 100) * 20;
+        firstWellDiameterCounter = totalValue;
       }
       // если 2 или 3 кольа
-      if (quantityRingsValue && quantityRingsValue === 2) {
-        totalValue += (totalValue / 10) * 30;
+      if (quantityRingsValue === 2) {
+        totalValue += (price / 100) * 30;
+        // (totalValue / 10) * 30;
+        firstWellRingsCounter = totalValue;
       } else if (quantityRingsValue === 3) {
-        totalValue += (totalValue / 10) * 50;
+        totalValue += (price / 100) * 50;
+        // (totalValue / 10) * 50;
+        firstWellRingsCounter = totalValue;
       }
       if (!myonoffswitch.checked && diameterSecondValue === 2) {
-        totalValue += (totalValue / 100) * 20;
+        totalValue += (price / 100) * 20;
+        // (totalValue / 100) * 20;
+        secondWellDiameterCounter = totalValue;
       }
       if (!myonoffswitch.checked && quantityRingsSecondValue === 2) {
-        totalValue += (totalValue / 100) * 30;
+        totalValue += (price / 100) * 30;
+        // (totalValue / 100) * 30;
+        firstWellRingsCounterTwo = totalValue;
       } else if (!myonoffswitch.checked && quantityRingsSecondValue === 3) {
-        totalValue += (totalValue / 100) * 50;
+        totalValue += (price / 100) * 50;
+        // (totalValue / 100) * 50;
+        secondWellRingsCounter = totalValue;
       }
       // общая цена
-      total.value = totalValue + price;
+      total.value = price + totalValue + septicCounter + firstWellDiameterCounter + firstWellRingsCounter + secondWellDiameterCounter + secondWellRingsCounter;
     }
 
     constructBtn[0].addEventListener('click', countSum);
