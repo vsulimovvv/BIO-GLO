@@ -5,7 +5,9 @@ const popup = () => {
     popupDiscount = document.querySelector('.popup-discount'),
     popupCheck = document.querySelector('.popup-check'),
     popupСonsultation = document.querySelector('.popup-consultation'),
+    popupСalc = document.querySelector('.popup-calc'),
     callBtns = document.querySelectorAll('.call-btn'),
+    calcBtn = document.querySelector('.calc-btn'),
     discountBtns = document.querySelectorAll('.discount-btn'),
     checkBtn = document.querySelector('.check-btn'),
     consultationBtn = document.querySelector('.consultation-btn'),
@@ -33,6 +35,9 @@ const popup = () => {
   });
   checkBtn.addEventListener('click', () => {
     popupCheck.style.display = 'block';
+  });
+  calcBtn.addEventListener('click', () => {
+    popupСalc.style.display = 'block';
   });
   consultationBtn.addEventListener('click', () => {
     popupСonsultation.style.display = 'block';
@@ -241,16 +246,17 @@ const calculate = () => {
       quantityRingsSecondValue = parseFloat(quantityRingsSecond.options[quantityRingsSecond.selectedIndex].value),
       price = 0,
       totalValue = price;
-      distanceValue = distance.value;
-      // console.log(distanceValue);
-      console.log(diameterSecondValue);
+    // let distanceValue = distance.value;
+    console.log(diameterSecondValue);
 
     let diameterOneNew = document.querySelector('#diameter-one');
     let diameterTwoNew = document.querySelector('#diameter-two');
     let quantityRingsOne = document.querySelector('#quantity-rings-one');
     let quantityRingsTwo = document.querySelector('#quantity-rings-two');
     let typeOfSeptic = document.querySelector('#type_of_septic');
+    let bottomAvailability = document.querySelector('#bottom-availability');
     let space = document.querySelector('#space');
+    let result = document.querySelector('#result');
     // space = distance.value;
     // считает сумму (в ней все парамтры)
     const countSum = () => {
@@ -259,20 +265,11 @@ const calculate = () => {
       quantityRingsValue = parseFloat(quantityRings.options[quantityRings.selectedIndex].value);
       quantityRingsSecondValue = parseFloat(quantityRingsSecond.options[quantityRingsSecond.selectedIndex].value);
       diameterOneNew.value = diameterValue;
-      diameterTwoNew.value = diameterSecondValue;
       quantityRingsOne.value = quantityRingsValue;
-      quantityRingsTwo.value = quantityRingsSecondValue;
-      space.value = distanceValue;
+      // distanceValue = distance.value;
+      space = distance.value;
+      result.value = total.value;
       console.log(diameterSecondValue);
-      /* <input type="hidden" name="type_of_septic" id="type_of_septic">
-                              <input type="hidden" name="diameter-one" id="diameter-one">
-                              <input type="hidden" name="diameter-two" id="diameter-two">
-                              <input type="hidden" name="quantity-rings-one" id="quantity-rings-one">
-                              <input type="hidden" name="quantity-rings-two" id="quantity-rings-two">
-                              <input type="hidden" name="bottom_availability" id="bottom-availability">
-                              <input type="hidden" name="space" id="space"></input> */
-
-
       console.log('diameterValue', diameterValue);
       console.log('diameterSecondValue', diameterSecondValue);
       console.log('quantityRingsValue', quantityRingsValue);
@@ -290,8 +287,10 @@ const calculate = () => {
       // наличие днища
       if (myonoffswitchTwo.checked) { // если есть
         totalValue += 1000;
+        bottomAvailability.value = 'yes';
       } else { // если нет
         totalValue += 2000;
+        bottomAvailability.value = 'no';
       }
       // диаметр
       if (diameterValue === 2) {
@@ -300,18 +299,27 @@ const calculate = () => {
       // если 2 или 3 кольа
       if (quantityRingsValue === 2) {
         totalValue += (totalValue / 10) * 30;
+
       } else if (quantityRingsValue === 3) {
         totalValue += (totalValue / 10) * 50;
+
       }
-      // если двух
+
       if (!myonoffswitch.checked && diameterSecondValue === 2) {
         totalValue += (totalValue / 100) * 20;
+        // quantityRingsTwo.value = quantityRingsSecondValue;
+        // diameterTwoNew.value = diameterSecondValue;
       }
       if (!myonoffswitch.checked && quantityRingsSecondValue === 2) {
         totalValue += (totalValue / 100) * 30;
+        // quantityRingsTwo.value = quantityRingsSecondValue;
+        // diameterTwoNew.value = diameterSecondValue;
       } else if (!myonoffswitch.checked && quantityRingsSecondValue === 3) {
         totalValue += (totalValue / 100) * 50;
+        // quantityRingsTwo.value = quantityRingsSecondValue;
+        // diameterTwoNew.value = diameterSecondValue;
       }
+
       // общая цена
       total.value = totalValue + price;
     }
@@ -338,57 +346,52 @@ const calculate = () => {
       loadMessage = 'Загрузка...',
       successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
-    const form = document.querySelectorAll('.send');
+    const form = document.querySelector('.calc');
 
     const statusMessage = document.createElement('div');
     statusMessage.style.cssText = 'font-size: 2rem;';
 
-    form.forEach((item) => {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
 
-      item.addEventListener('submit', (event) => {
-        event.preventDefault();
+      form.appendChild(statusMessage);
+      statusMessage.textContent = loadMessage;
 
-        item.appendChild(statusMessage);
-        statusMessage.textContent = loadMessage;
-
-        const removeMessage = () => {
-          statusMessage.textContent = '';
-        }
-
-        const formData = new FormData(item);
-        let body = {};
-        formData.forEach((val, key) => {
-          body[key] = val;
-        });
-        postData(body)
-          .then((response) => {
-            if (response.status !== 200) {
-              throw new Error('status network not 200');
-            }
-            statusMessage.textContent = successMessage;
-            setTimeout(removeMessage, 5000);
-          })
-          .catch(() => {
-            statusMessage.textContent = errorMessage;
-            setTimeout(removeMessage, 5000);
-          });
-        item.reset();
-      });
-
-      const postData = (body) => {
-        return fetch('./server.php', {
-          method: 'POST',
-          headers: {
-            'Content-type': 'application/json'
-          },
-          body: JSON.stringify(body)
-        });
+      const removeMessage = () => {
+        statusMessage.textContent = '';
       }
+
+      const formData = new FormData(form);
+      let body = {};
+      formData.forEach((val, key) => {
+        body[key] = val;
+      });
+      postData(body)
+        .then((response) => {
+          if (response.status !== 200) {
+            throw new Error('status network not 200');
+          }
+          statusMessage.textContent = successMessage;
+          setTimeout(removeMessage, 5000);
+        })
+        .catch(() => {
+          statusMessage.textContent = errorMessage;
+          setTimeout(removeMessage, 5000);
+        });
+      form.reset();
     });
+
+    const postData = (body) => {
+      return fetch('./server.php', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      });
+    }
   };
-
   sendFormCalc();
-
 };
 calculate();
 
