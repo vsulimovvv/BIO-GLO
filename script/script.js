@@ -76,6 +76,7 @@ const more = () => {
 };
 more();
 
+// валидация форм
 const formValid = () => {
   const phoneUser = document.querySelectorAll('.phone-user');
   const nameUser = document.querySelectorAll('input[name="user_name"]');
@@ -240,17 +241,51 @@ const calculate = () => {
       quantityRingsSecondValue = parseFloat(quantityRingsSecond.options[quantityRingsSecond.selectedIndex].value),
       price = 0,
       totalValue = price;
+      distanceValue = distance.value;
+      // console.log(distanceValue);
+      console.log(diameterSecondValue);
 
-    // console.log('diameterValue', diameterValue)
-
+    let diameterOneNew = document.querySelector('#diameter-one');
+    let diameterTwoNew = document.querySelector('#diameter-two');
+    let quantityRingsOne = document.querySelector('#quantity-rings-one');
+    let quantityRingsTwo = document.querySelector('#quantity-rings-two');
+    let typeOfSeptic = document.querySelector('#type_of_septic');
+    let space = document.querySelector('#space');
+    // space = distance.value;
     // считает сумму (в ней все парамтры)
     const countSum = () => {
+      diameterValue = parseFloat(diameter.options[diameter.selectedIndex].value);
+      diameterSecondValue = parseFloat(diameterSecond.options[diameterSecond.selectedIndex].value);
+      quantityRingsValue = parseFloat(quantityRings.options[quantityRings.selectedIndex].value);
+      quantityRingsSecondValue = parseFloat(quantityRingsSecond.options[quantityRingsSecond.selectedIndex].value);
+      diameterOneNew.value = diameterValue;
+      diameterTwoNew.value = diameterSecondValue;
+      quantityRingsOne.value = quantityRingsValue;
+      quantityRingsTwo.value = quantityRingsSecondValue;
+      space.value = distanceValue;
+      console.log(diameterSecondValue);
+      /* <input type="hidden" name="type_of_septic" id="type_of_septic">
+                              <input type="hidden" name="diameter-one" id="diameter-one">
+                              <input type="hidden" name="diameter-two" id="diameter-two">
+                              <input type="hidden" name="quantity-rings-one" id="quantity-rings-one">
+                              <input type="hidden" name="quantity-rings-two" id="quantity-rings-two">
+                              <input type="hidden" name="bottom_availability" id="bottom-availability">
+                              <input type="hidden" name="space" id="space"></input> */
+
+
+      console.log('diameterValue', diameterValue);
+      console.log('diameterSecondValue', diameterSecondValue);
+      console.log('quantityRingsValue', quantityRingsValue);
+      console.log('quantityRingsSecondValue', quantityRingsSecondValue);
+
       // тип септика 
       if (myonoffswitch.checked) { //одно
         price = 10000;
+        typeOfSeptic.value = 1;
       }
       if (!myonoffswitch.checked) { // двух
         price = 15000;
+        typeOfSeptic.value = 2;
       }
       // наличие днища
       if (myonoffswitchTwo.checked) { // если есть
@@ -286,7 +321,7 @@ const calculate = () => {
     });
     accordion.addEventListener('change', () => {
       const target = event.target;
-      if (target === distance || target === myonoffswitch || target === distance || target === quantityRings || target === diameter || target === myonoffswitch || target === myonoffswitchTwo || target === diameterSecond || target === quantityRingsSecond) {
+      if (target === distance || target === myonoffswitch || target === quantityRings || target === diameter || target === myonoffswitch || target === myonoffswitchTwo || target === diameterSecond || target === quantityRingsSecond) {
         countSum();
       }
     });
@@ -377,8 +412,7 @@ calculate();
 
 
 
-// 
-
+// отправка форм
 const sendFormQuestion = () => {
   const errorMessage = 'Что то пошло не так...',
     loadMessage = 'Загрузка...',
