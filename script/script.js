@@ -204,8 +204,8 @@ const calculate = () => {
       myonoffswitchTwo = document.querySelector('#myonoffswitch-two'), // есть/нет
       myonoffswitch = document.querySelector('#myonoffswitch'), // есть/нет
       distance = document.querySelector('#distance'), // расстояние в метрах
-      callBtn = document.querySelector('.call-btn');
-    const well = document.getElementById('well');
+      calcBtn = document.querySelector('.calc-btn'),
+      well = document.getElementById('well');
 
     let diameterValue = parseFloat(diameter.options[diameter.selectedIndex].value),
       diameterSecondValue = parseFloat(diameterSecond.options[diameterSecond.selectedIndex].value),
@@ -250,14 +250,10 @@ const calculate = () => {
       space.value = distance.value;
       result.value = total.value;
 
-      console.log('quantityRingsSecondValue', quantityRingsSecondValue);
-      console.log('diameterSecondValue', diameterSecondValue);
-
       // тип септика 
       if (myonoffswitch.checked) { //одно
         price = 10000;
         typeOfSeptic.value = 1;
-
       }
       if (!myonoffswitch.checked) { // двух
         price = 15000;
@@ -274,17 +270,15 @@ const calculate = () => {
         bottomAvailability.value = 'no';
       }
       // диаметр
-      if (diameterValue === 2) {
+      if (diameterValue && diameterValue === 2) {
         totalValue += (totalValue / 10) * 20;
       }
       // если 2 или 3 кольа
-      if (quantityRingsValue === 2) {
+      if (quantityRingsValue && quantityRingsValue === 2) {
         totalValue += (totalValue / 10) * 30;
-
       } else if (quantityRingsValue === 3) {
         totalValue += (totalValue / 10) * 50;
       }
-
       if (!myonoffswitch.checked && diameterSecondValue === 2) {
         totalValue += (totalValue / 100) * 20;
       }
@@ -297,16 +291,17 @@ const calculate = () => {
       total.value = totalValue + price;
     }
 
-    constructBtn.forEach((item) => {
-      item.addEventListener('click', countSum);
-    });
+    constructBtn[0].addEventListener('click', countSum);
+    // constructBtn.forEach((item) => {
+    //   item.addEventListener('click', countSum);
+    // });
     accordion.addEventListener('change', () => {
       const target = event.target;
       if (target === distance || target === myonoffswitch || target === quantityRings || target === diameter || target === myonoffswitch || target === myonoffswitchTwo || target === diameterSecond || target === quantityRingsSecond) {
         countSum();
       }
     });
-    callBtn.addEventListener('click', () => {
+    calcBtn.addEventListener('click', () => {
       total.value = '';
     });
   }
