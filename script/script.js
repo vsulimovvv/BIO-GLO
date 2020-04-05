@@ -115,186 +115,189 @@ accordion();
 
 
 
-// калькулятор-аккордеон
-const calculatorAcc = () => {
-  const accordionCalc = document.querySelector('#accordion'),
-    constructBtn = accordionCalc.querySelectorAll('.construct-btn'),
-    panelCollapse = accordionCalc.querySelectorAll('.panel-collapse'),
-    panelHeader = accordionCalc.querySelectorAll('.panel-heading'),
-    panelBody = accordionCalc.querySelectorAll('.panel-body'),
-    collapseOne = accordionCalc.querySelector('#collapseOne'),
-    collapseTwo = accordionCalc.querySelector('#collapseTwo'),
-    collapseThree = accordionCalc.querySelector('#collapseThree'),
-    collapseFour = accordionCalc.querySelector('#collapseFour');
 
-  // кнопка следующий шаг, нужно переделать
-  const nextStep1 = () => {
-    for (let i = 0; i < constructBtn.length; i++) {
-      constructBtn[0].onclick = function () {
-        collapseOne.classList.remove('in');
-        collapseTwo.classList.add('in');
-      };
-    };
-  }
-  nextStep1();
 
-  const nextStep2 = () => {
-    for (let i = 0; i < constructBtn.length; i++) {
-      constructBtn[1].onclick = function () {
-        collapseTwo.classList.remove('in');
-        collapseThree.classList.add('in');
-      };
-    };
-  }
-  nextStep2();
 
-  const nextStep3 = () => {
-    for (let i = 0; i < constructBtn.length; i++) {
-      constructBtn[2].onclick = function () {
-        collapseThree.classList.remove('in');
-        collapseFour.classList.add('in');
-      };
-    };
-  }
-  nextStep3();
 
-  const nextStep4 = () => {
-    for (let i = 0; i < constructBtn.length; i++) {
-      constructBtn[3].onclick = function () {
-        collapseFour.classList.remove('in');
-        collapseOne.classList.add('in');
-      };
-    };
-  }
-  nextStep4();
 
-  // аккордеон кальулятор
-  const toggleCalc = () => {
-    for (let i = 0; i < panelHeader.length; i++) {
-      panelHeader[i].onclick = function (event) {
-        event.preventDefault();
-        for (let k = 0; k < panelCollapse.length; k++) {
-          panelCollapse[k].classList.remove('in')
-        }
-        panelCollapse[i].classList.toggle('in');
+
+
+
+
+
+
+
+
+
+
+
+
+// Весь калькулятор 
+const calculate = () => {
+  // калькулятор-аккордеон
+  const calculatorAcc = () => {
+    const accordionCalc = document.querySelector('#accordion'),
+      constructBtn = accordionCalc.querySelectorAll('.construct-btn'),
+      panelCollapse = accordionCalc.querySelectorAll('.panel-collapse'),
+      panelHeader = accordionCalc.querySelectorAll('.panel-heading'),
+      panelBody = accordionCalc.querySelectorAll('.panel-body'),
+      collapseOne = accordionCalc.querySelector('#collapseOne'),
+      collapseTwo = accordionCalc.querySelector('#collapseTwo'),
+      collapseThree = accordionCalc.querySelector('#collapseThree'),
+      collapseFour = accordionCalc.querySelector('#collapseFour');
+
+    // кнопка следующий шаг, нужно переделать
+    const nextStep1 = () => {
+      for (let i = 0; i < constructBtn.length; i++) {
+        constructBtn[0].onclick = function () {
+          collapseOne.classList.remove('in');
+          collapseTwo.classList.add('in');
+        };
       };
     }
-  }
-  toggleCalc();
+    nextStep1();
 
-  // одно или двух камерный септик
-  const checked = () => {
-    const well = document.getElementById('well');
-    well.style.display = 'none';
-    const myonoffswitch = document.getElementById('myonoffswitch');
-    myonoffswitch.addEventListener('change', () => {
-      if (myonoffswitch && myonoffswitch.checked) {
-        well.style.display = 'none';
-      } else if (!myonoffswitch.checked) {
-        well.style.display = 'inline-block';
+    const nextStep2 = () => {
+      for (let i = 0; i < constructBtn.length; i++) {
+        constructBtn[1].onclick = function () {
+          collapseTwo.classList.remove('in');
+          collapseThree.classList.add('in');
+        };
+      };
+    }
+    nextStep2();
+
+    const nextStep3 = () => {
+      for (let i = 0; i < constructBtn.length; i++) {
+        constructBtn[2].onclick = function () {
+          collapseThree.classList.remove('in');
+          collapseFour.classList.add('in');
+        };
+      };
+    }
+    nextStep3();
+
+    const nextStep4 = () => {
+      for (let i = 0; i < constructBtn.length; i++) {
+        constructBtn[3].onclick = function () {
+          collapseFour.classList.remove('in');
+          collapseOne.classList.add('in');
+        };
+      };
+    }
+    nextStep4();
+
+    // аккордеон кальулятор
+    const toggleCalc = () => {
+      for (let i = 0; i < panelHeader.length; i++) {
+        panelHeader[i].onclick = function (event) {
+          event.preventDefault();
+          for (let k = 0; k < panelCollapse.length; k++) {
+            panelCollapse[k].classList.remove('in')
+          }
+          panelCollapse[i].classList.toggle('in');
+        };
+      }
+    }
+    toggleCalc();
+
+    // одно или двух камерный септик
+    const checked = () => {
+      const well = document.getElementById('well');
+      well.style.display = 'none';
+      const myonoffswitch = document.getElementById('myonoffswitch');
+      myonoffswitch.addEventListener('change', () => {
+        if (myonoffswitch && myonoffswitch.checked) {
+          well.style.display = 'none';
+        } else if (!myonoffswitch.checked) {
+          well.style.display = 'inline-block';
+        }
+      });
+    }
+    checked();
+  };
+
+  calculatorAcc();
+
+  // подсчет то, что выбирает пользователь
+  const calculateCount = () => {
+    const constructBtn = document.querySelectorAll('.construct-btn'),
+      accordion = document.querySelector('#accordion'),
+      total = document.querySelector('#calc-result'),
+      quantityRings = document.querySelector('#quantity-rings'), // количество колец
+      quantityRingsSecond = document.querySelector('#quantity-rings-two'), // количество колец
+      diameter = document.querySelector('#diameter'), // диаметр
+      diameterSecond = document.getElementById('diameter-two'), // диаметр
+      myonoffswitchTwo = document.querySelector('#myonoffswitch-two'), // есть/нет
+      myonoffswitch = document.querySelector('#myonoffswitch'), // есть/нет
+      distance = document.querySelector('#distance'), // расстояние в метрах
+      callBtn = document.querySelector('.call-btn');
+
+    // const dataCalc = () => {
+    let diameterValue = parseFloat(diameter.options[diameter.selectedIndex].value),
+      diameterSecondValue = parseFloat(diameterSecond.options[diameterSecond.selectedIndex].value),
+      quantityRingsValue = parseFloat(quantityRings.options[quantityRings.selectedIndex].value),
+      quantityRingsSecondValue = parseFloat(quantityRingsSecond.options[quantityRingsSecond.selectedIndex].value),
+      price = 0,
+      totalValue = price;
+
+    // console.log('diameterValue', diameterValue)
+
+    // считает сумму (в ней все парамтры)
+    const countSum = () => {
+      // тип септика 
+      if (myonoffswitch.checked) { //одно
+        price = 10000;
+      }
+      if (!myonoffswitch.checked) { // двух
+        price = 15000;
+      }
+      // наличие днища
+      if (myonoffswitchTwo.checked) { // если есть
+        totalValue += 1000;
+      } else { // если нет
+        totalValue += 2000;
+      }
+      // диаметр
+      if (diameterValue === 2) {
+        totalValue += (totalValue / 10) * 20;
+      }
+      // если 2 или 3 кольа
+      if (quantityRingsValue === 2) {
+        totalValue += (totalValue / 10) * 30;
+      } else if (quantityRingsValue === 3) {
+        totalValue += (totalValue / 10) * 50;
+      }
+      // если двух
+      if (!myonoffswitch.checked && diameterSecondValue === 2) {
+        totalValue += (totalValue / 100) * 20;
+      }
+      if (!myonoffswitch.checked && quantityRingsSecondValue === 2) {
+        totalValue += (totalValue / 100) * 30;
+      } else if (!myonoffswitch.checked && quantityRingsSecondValue === 3) {
+        totalValue += (totalValue / 100) * 50;
+      }
+      // общая цена
+      total.value = totalValue + price;
+    }
+
+    constructBtn.forEach((item) => {
+      item.addEventListener('click', countSum);
+    });
+    accordion.addEventListener('change', () => {
+      const target = event.target;
+      if (target === distance || target === myonoffswitch || target === distance || target === quantityRings || target === diameter || target === myonoffswitch || target === myonoffswitchTwo || target === diameterSecond || target === quantityRingsSecond) {
+        countSum();
       }
     });
+    callBtn.addEventListener('click', () => {
+      total.value = '';
+    });
   }
-  checked();
-};
-
-calculatorAcc();
-
-// функия считающая то, что выберет пользователь
-const calculate = () => {
-
-
-  const constructBtn = document.querySelectorAll('.construct-btn'),
-    accordion = document.querySelector('#accordion'),
-    total = document.querySelector('#calc-result'),
-    quantityRings = document.querySelector('#quantity-rings'), // количество колец
-    quantityRingsSecond = document.querySelector('#quantity-rings-two'), // количество колец
-    diameter = document.querySelector('#diameter'), // диаметр
-    diameterSecond = document.getElementById('diameter-two'), // диаметр
-    myonoffswitchTwo = document.querySelector('#myonoffswitch-two'), // есть/нет
-    myonoffswitch = document.querySelector('#myonoffswitch'), // есть/нет
-    distance = document.querySelector('#distance'), // расстояние в метрах
-    callBtn = document.querySelector('.call-btn');
-
-  // const dataCalc = () => {
-  let diameterValue = parseFloat(diameter.options[diameter.selectedIndex].value),
-    diameterSecondValue = parseFloat(diameterSecond.options[diameterSecond.selectedIndex].value),
-    quantityRingsValue = parseFloat(quantityRings.options[quantityRings.selectedIndex].value),
-    quantityRingsSecondValue = parseFloat(quantityRingsSecond.options[quantityRingsSecond.selectedIndex].value),
-    price = 0,
-    totalValue = price;
-
-  // console.log('diameterValue', diameterValue)
-
-  // считает сумму (в ней все парамтры)
-  const countSum = () => {
-    // тип септика 
-    if (myonoffswitch.checked) { //одно
-      price = 10000;
-    }
-    if (!myonoffswitch.checked) { // двух
-      price = 15000;
-    }
-
-    // наличие днища
-    if (myonoffswitchTwo.checked) { // если есть
-      totalValue += 1000;
-    } else { // если нет
-      totalValue += 2000;
-    }
-
-    // диаметр
-    if (diameterValue === 2) {
-      totalValue += (totalValue / 10) * 20;
-    }
-    // если 2 или 3 кольа
-    if (quantityRingsValue === 2) {
-      totalValue += (totalValue / 10) * 30;
-    } else if (quantityRingsValue === 3) {
-      totalValue += (totalValue / 10) * 50;
-    }
-
-    // если двух
-    if (!myonoffswitch.checked && diameterSecondValue === 2) {
-      totalValue += (totalValue / 100) * 20;
-    }
-
-    if (!myonoffswitch.checked && quantityRingsSecondValue === 2) {
-      totalValue += (totalValue / 100) * 30;
-    } else if (!myonoffswitch.checked && quantityRingsSecondValue === 3) {
-      totalValue += (totalValue / 100) * 50;
-    }
-
-    // общая цена
-    total.value = totalValue + price;
-  }
-  // let a = countSum();
-
-  constructBtn.forEach((item) => {
-    item.addEventListener('click', countSum);
-  });
-
-  // const change = () => {
-  accordion.addEventListener('change', () => {
-    const target = event.target;
-    if (target === distance || target === myonoffswitch || target === distance || target === quantityRings || target === diameter || target === myonoffswitch || target === myonoffswitchTwo || target === diameterSecond || target === quantityRingsSecond) {
-      countSum();
-    }
-  });
-  // };
-  // change();
-
-  callBtn.addEventListener('click', () => {
-    total.value = '';
-  });
-  // }
+  calculateCount();
 
   // функцмя отправки данных калькулятора
   const sendFormCalc = () => {
-    let a = diameterValue;
-    countMoney();
-
-    console.log(a)
 
     const errorMessage = 'Что то пошло не так...',
       loadMessage = 'Загрузка...',
@@ -353,6 +356,28 @@ const calculate = () => {
 
 };
 calculate();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 
 
 const sendFormQuestion = () => {
   const errorMessage = 'Что то пошло не так...',
