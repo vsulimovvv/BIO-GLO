@@ -207,26 +207,27 @@ const calculate = () => {
     }
     toggleCalc();
 
-    // одно или двух камерный септик
-    const checked = () => {
-      const well = document.getElementById('well');
-      well.style.display = 'none';
-      const myonoffswitch = document.getElementById('myonoffswitch');
-      myonoffswitch.addEventListener('change', () => {
-        if (myonoffswitch && myonoffswitch.checked) {
-          well.style.display = 'none';
-        } else if (!myonoffswitch.checked) {
-          well.style.display = 'inline-block';
-        }
-      });
-    }
-    checked();
+    // // одно или двух камерный септик
+    // const checked = () => {
+    //   const well = document.getElementById('well');
+    //   well.style.display = 'none';
+    //   const myonoffswitch = document.getElementById('myonoffswitch');
+    //   myonoffswitch.addEventListener('change', () => {
+    //     if (myonoffswitch && myonoffswitch.checked) {
+    //       well.style.display = 'none';
+    //     } else if (!myonoffswitch.checked) {
+    //       well.style.display = 'inline-block';
+    //     }
+    //   });
+    // }
+    // checked();
   };
 
   calculatorAcc();
 
   // подсчет то, что выбирает пользователь
   const calculateCount = () => {
+
     const constructBtn = document.querySelectorAll('.construct-btn'),
       accordion = document.querySelector('#accordion'),
       total = document.querySelector('#calc-result'),
@@ -238,16 +239,14 @@ const calculate = () => {
       myonoffswitch = document.querySelector('#myonoffswitch'), // есть/нет
       distance = document.querySelector('#distance'), // расстояние в метрах
       callBtn = document.querySelector('.call-btn');
+    const well = document.getElementById('well');
 
-    // const dataCalc = () => {
     let diameterValue = parseFloat(diameter.options[diameter.selectedIndex].value),
       diameterSecondValue = parseFloat(diameterSecond.options[diameterSecond.selectedIndex].value),
       quantityRingsValue = parseFloat(quantityRings.options[quantityRings.selectedIndex].value),
       quantityRingsSecondValue = parseFloat(quantityRingsSecond.options[quantityRingsSecond.selectedIndex].value),
       price = 0,
       totalValue = price;
-    // let distanceValue = distance.value;
-    console.log(diameterSecondValue);
 
     let diameterOneNew = document.querySelector('#diameter-one');
     let diameterTwoNew = document.querySelector('#diameter-two');
@@ -257,32 +256,51 @@ const calculate = () => {
     let bottomAvailability = document.querySelector('#bottom-availability');
     let space = document.querySelector('#space');
     let result = document.querySelector('#result');
+
+
+
+    // одно или двух камерный септик
+    const checkedWell = () => {
+      // const well = document.getElementById('well');
+      well.style.display = 'none';
+      // const myonoffswitch = document.getElementById('myonoffswitch');
+      myonoffswitch.addEventListener('change', () => {
+        if (myonoffswitch && myonoffswitch.checked) {
+          well.style.display = 'none';
+        } else if (!myonoffswitch.checked) {
+          well.style.display = 'inline-block';
+        }
+      });
+    }
+    checkedWell();
+
+
+
     // space = distance.value;
     // считает сумму (в ней все парамтры)
     const countSum = () => {
+      // переприсвоение всем let
       diameterValue = parseFloat(diameter.options[diameter.selectedIndex].value);
       diameterSecondValue = parseFloat(diameterSecond.options[diameterSecond.selectedIndex].value);
       quantityRingsValue = parseFloat(quantityRings.options[quantityRings.selectedIndex].value);
       quantityRingsSecondValue = parseFloat(quantityRingsSecond.options[quantityRingsSecond.selectedIndex].value);
       diameterOneNew.value = diameterValue;
       quantityRingsOne.value = quantityRingsValue;
-      // distanceValue = distance.value;
-      space = distance.value;
+      space.value = distance.value;
       result.value = total.value;
-      console.log(diameterSecondValue);
-      console.log('diameterValue', diameterValue);
-      console.log('diameterSecondValue', diameterSecondValue);
-      console.log('quantityRingsValue', quantityRingsValue);
-      console.log('quantityRingsSecondValue', quantityRingsSecondValue);
 
+      console.log('quantityRingsSecondValue', quantityRingsSecondValue);
+      
       // тип септика 
       if (myonoffswitch.checked) { //одно
         price = 10000;
         typeOfSeptic.value = 1;
+        // quantityRingsSecondValue = 'no'
       }
       if (!myonoffswitch.checked) { // двух
         price = 15000;
         typeOfSeptic.value = 2;
+        // diameterSecondValue = 'no';
       }
       // наличие днища
       if (myonoffswitchTwo.checked) { // если есть
@@ -302,7 +320,6 @@ const calculate = () => {
 
       } else if (quantityRingsValue === 3) {
         totalValue += (totalValue / 10) * 50;
-
       }
 
       if (!myonoffswitch.checked && diameterSecondValue === 2) {
@@ -319,7 +336,6 @@ const calculate = () => {
         // quantityRingsTwo.value = quantityRingsSecondValue;
         // diameterTwoNew.value = diameterSecondValue;
       }
-
       // общая цена
       total.value = totalValue + price;
     }
