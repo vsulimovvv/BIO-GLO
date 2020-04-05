@@ -113,90 +113,96 @@ const accordion = () => {
 };
 accordion();
 
-// считалка
+
+
+// калькулятор-аккордеон
+const calculatorAcc = () => {
+  const accordionCalc = document.querySelector('#accordion'),
+    constructBtn = accordionCalc.querySelectorAll('.construct-btn'),
+    panelCollapse = accordionCalc.querySelectorAll('.panel-collapse'),
+    panelHeader = accordionCalc.querySelectorAll('.panel-heading'),
+    panelBody = accordionCalc.querySelectorAll('.panel-body'),
+    collapseOne = accordionCalc.querySelector('#collapseOne'),
+    collapseTwo = accordionCalc.querySelector('#collapseTwo'),
+    collapseThree = accordionCalc.querySelector('#collapseThree'),
+    collapseFour = accordionCalc.querySelector('#collapseFour');
+
+  // кнопка следующий шаг, нужно переделать
+  const nextStep1 = () => {
+    for (let i = 0; i < constructBtn.length; i++) {
+      constructBtn[0].onclick = function () {
+        collapseOne.classList.remove('in');
+        collapseTwo.classList.add('in');
+      };
+    };
+  }
+  nextStep1();
+
+  const nextStep2 = () => {
+    for (let i = 0; i < constructBtn.length; i++) {
+      constructBtn[1].onclick = function () {
+        collapseTwo.classList.remove('in');
+        collapseThree.classList.add('in');
+      };
+    };
+  }
+  nextStep2();
+
+  const nextStep3 = () => {
+    for (let i = 0; i < constructBtn.length; i++) {
+      constructBtn[2].onclick = function () {
+        collapseThree.classList.remove('in');
+        collapseFour.classList.add('in');
+      };
+    };
+  }
+  nextStep3();
+
+  const nextStep4 = () => {
+    for (let i = 0; i < constructBtn.length; i++) {
+      constructBtn[3].onclick = function () {
+        collapseFour.classList.remove('in');
+        collapseOne.classList.add('in');
+      };
+    };
+  }
+  nextStep4();
+
+  // аккордеон кальулятор
+  const toggleCalc = () => {
+    for (let i = 0; i < panelHeader.length; i++) {
+      panelHeader[i].onclick = function (event) {
+        event.preventDefault();
+        for (let k = 0; k < panelCollapse.length; k++) {
+          panelCollapse[k].classList.remove('in')
+        }
+        panelCollapse[i].classList.toggle('in');
+      };
+    }
+  }
+  toggleCalc();
+
+  // одно или двух камерный септик
+  const checked = () => {
+    const well = document.getElementById('well');
+    well.style.display = 'none';
+    const myonoffswitch = document.getElementById('myonoffswitch');
+    myonoffswitch.addEventListener('change', () => {
+      if (myonoffswitch && myonoffswitch.checked) {
+        well.style.display = 'none';
+      } else if (!myonoffswitch.checked) {
+        well.style.display = 'inline-block';
+      }
+    });
+  }
+  checked();
+};
+
+calculatorAcc();
+
+// функия считающая то, что выберет пользователь
 const calculate = () => {
 
-  // calculator // аккардион
-  const calculatorAcc = () => {
-    const accordionCalc = document.querySelector('#accordion'),
-      constructBtn = accordionCalc.querySelectorAll('.construct-btn'),
-      panelCollapse = accordionCalc.querySelectorAll('.panel-collapse'),
-      panelHeader = accordionCalc.querySelectorAll('.panel-heading'),
-      panelBody = accordionCalc.querySelectorAll('.panel-body'),
-      collapseOne = accordionCalc.querySelector('#collapseOne'),
-      collapseTwo = accordionCalc.querySelector('#collapseTwo'),
-      collapseThree = accordionCalc.querySelector('#collapseThree'),
-      collapseFour = accordionCalc.querySelector('#collapseFour');
-
-    const nextStep1 = () => {
-      for (let i = 0; i < constructBtn.length; i++) {
-        constructBtn[0].onclick = function () {
-          collapseOne.classList.remove('in');
-          collapseTwo.classList.add('in');
-        };
-      };
-    }
-    nextStep1();
-
-    const nextStep2 = () => {
-      for (let i = 0; i < constructBtn.length; i++) {
-        constructBtn[1].onclick = function () {
-          collapseTwo.classList.remove('in');
-          collapseThree.classList.add('in');
-        };
-      };
-    }
-    nextStep2();
-
-    const nextStep3 = () => {
-      for (let i = 0; i < constructBtn.length; i++) {
-        constructBtn[2].onclick = function () {
-          collapseThree.classList.remove('in');
-          collapseFour.classList.add('in');
-        };
-      };
-    }
-    nextStep3();
-
-    const nextStep4 = () => {
-      for (let i = 0; i < constructBtn.length; i++) {
-        constructBtn[3].onclick = function () {
-          collapseFour.classList.remove('in');
-          collapseOne.classList.add('in');
-        };
-      };
-    }
-    nextStep4();
-
-    const toggleCalc = () => {
-      for (let i = 0; i < panelHeader.length; i++) {
-        panelHeader[i].onclick = function (event) {
-          event.preventDefault();
-          for (let k = 0; k < panelCollapse.length; k++) {
-            panelCollapse[k].classList.remove('in')
-          }
-          panelCollapse[i].classList.toggle('in');
-        };
-      }
-    }
-    toggleCalc();
-
-    const checked = () => {
-      const well = document.getElementById('well');
-      well.style.display = 'none';
-      const myonoffswitch = document.getElementById('myonoffswitch');
-      myonoffswitch.addEventListener('change', () => {
-        if (myonoffswitch && myonoffswitch.checked) {
-          well.style.display = 'none';
-        } else if (!myonoffswitch.checked) {
-          well.style.display = 'inline-block';
-        }
-      });
-    }
-    checked();
-  };
-
-  calculatorAcc();
 
   const constructBtn = document.querySelectorAll('.construct-btn'),
     accordion = document.querySelector('#accordion'),
@@ -210,14 +216,18 @@ const calculate = () => {
     distance = document.querySelector('#distance'), // расстояние в метрах
     callBtn = document.querySelector('.call-btn');
 
-  const countSum = () => {
-    let diameterValue = parseFloat(diameter.options[diameter.selectedIndex].value),
-      diameterSecondValue = parseFloat(diameterSecond.options[diameterSecond.selectedIndex].value),
-      quantityRingsValue = parseFloat(quantityRings.options[quantityRings.selectedIndex].value),
-      quantityRingsSecondValue = parseFloat(quantityRingsSecond.options[quantityRingsSecond.selectedIndex].value),
-      price = 0,
-      totalValue = price;
+  // const dataCalc = () => {
+  let diameterValue = parseFloat(diameter.options[diameter.selectedIndex].value),
+    diameterSecondValue = parseFloat(diameterSecond.options[diameterSecond.selectedIndex].value),
+    quantityRingsValue = parseFloat(quantityRings.options[quantityRings.selectedIndex].value),
+    quantityRingsSecondValue = parseFloat(quantityRingsSecond.options[quantityRingsSecond.selectedIndex].value),
+    price = 0,
+    totalValue = price;
 
+  // console.log('diameterValue', diameterValue)
+
+  // считает сумму (в ней все парамтры)
+  const countSum = () => {
     // тип септика 
     if (myonoffswitch.checked) { //одно
       price = 10000;
@@ -258,21 +268,89 @@ const calculate = () => {
     // общая цена
     total.value = totalValue + price;
   }
-  // countSum();
+  // let a = countSum();
 
   constructBtn.forEach((item) => {
     item.addEventListener('click', countSum);
   });
 
+  // const change = () => {
   accordion.addEventListener('change', () => {
     const target = event.target;
     if (target === distance || target === myonoffswitch || target === distance || target === quantityRings || target === diameter || target === myonoffswitch || target === myonoffswitchTwo || target === diameterSecond || target === quantityRingsSecond) {
       countSum();
     }
-  })
+  });
+  // };
+  // change();
+
   callBtn.addEventListener('click', () => {
     total.value = '';
   });
+  // }
+
+  // функцмя отправки данных калькулятора
+  const sendFormCalc = () => {
+    let a = diameterValue;
+    countMoney();
+
+    console.log(a)
+
+    const errorMessage = 'Что то пошло не так...',
+      loadMessage = 'Загрузка...',
+      successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
+
+    const form = document.querySelectorAll('.send');
+
+    const statusMessage = document.createElement('div');
+    statusMessage.style.cssText = 'font-size: 2rem;';
+
+    form.forEach((item) => {
+
+      item.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        item.appendChild(statusMessage);
+        statusMessage.textContent = loadMessage;
+
+        const removeMessage = () => {
+          statusMessage.textContent = '';
+        }
+
+        const formData = new FormData(item);
+        let body = {};
+        formData.forEach((val, key) => {
+          body[key] = val;
+        });
+        postData(body)
+          .then((response) => {
+            if (response.status !== 200) {
+              throw new Error('status network not 200');
+            }
+            statusMessage.textContent = successMessage;
+            setTimeout(removeMessage, 5000);
+          })
+          .catch(() => {
+            statusMessage.textContent = errorMessage;
+            setTimeout(removeMessage, 5000);
+          });
+        item.reset();
+      });
+
+      const postData = (body) => {
+        return fetch('./server.php', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify(body)
+        });
+      }
+    });
+  };
+
+  sendFormCalc();
+
 };
 calculate();
 
