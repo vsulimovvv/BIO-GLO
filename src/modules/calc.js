@@ -10,7 +10,8 @@ const calculate = () => {
     const nextStep = () => {
       let currentPanel = 0;
       constructBtn.forEach(item => {
-        item.addEventListener('click', () => {
+        item.addEventListener('click', (event) => {
+          event.preventDefault();
           panelCollapse[currentPanel].classList.remove('in');
           currentPanel++;
           if (currentPanel >= panelCollapse.length) {
