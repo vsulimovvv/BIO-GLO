@@ -17,8 +17,8 @@ const calculate = () => {
           collapseOne.classList.remove('in');
           collapseTwo.classList.add('in');
         });
-      };
-    }
+      }
+    };
     nextStep1();
 
     const nextStep2 = () => {
@@ -27,8 +27,8 @@ const calculate = () => {
           collapseTwo.classList.remove('in');
           collapseThree.classList.add('in');
         });
-      };
-    }
+      }
+    };
     nextStep2();
 
     const nextStep3 = () => {
@@ -37,8 +37,8 @@ const calculate = () => {
           collapseThree.classList.remove('in');
           collapseFour.classList.add('in');
         });
-      };
-    }
+      }
+    };
     nextStep3();
 
     const nextStep4 = () => {
@@ -47,8 +47,8 @@ const calculate = () => {
           collapseFour.classList.remove('in');
           collapseOne.classList.add('in');
         });
-      };
-    }
+      }
+    };
     nextStep4();
 
     // аккордеон кальулятор
@@ -62,7 +62,7 @@ const calculate = () => {
           panelCollapse[i].classList.toggle('in');
         });
       }
-    }
+    };
     toggleCalc();
   };
 
@@ -108,7 +108,7 @@ const calculate = () => {
           well.style.display = 'inline-block';
         }
       });
-    }
+    };
     checkedWell();
 
     // считает сумму (в ней все парамтры)

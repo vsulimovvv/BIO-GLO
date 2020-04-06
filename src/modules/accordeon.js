@@ -1,7 +1,6 @@
 const accordeon = () => {
   const accordionTwo = document.querySelector('#accordion-two'),
     panels = accordionTwo.querySelectorAll('.panel'),
-    accButtons = document.querySelectorAll('[data-parent="#accordion-two"]'),
     panelCollapse = accordionTwo.querySelectorAll('.panel-collapse'),
     panelHeading = accordionTwo.querySelectorAll('.panel-heading');
 
@@ -13,6 +12,6 @@ const accordeon = () => {
       }
       panelCollapse[i].classList.toggle('in');
     });
-  };
+  }
 };
 export default accordeon;

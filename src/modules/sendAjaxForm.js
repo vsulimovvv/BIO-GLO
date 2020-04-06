@@ -18,7 +18,7 @@ const sendAllForm = () => {
 
       const removeMessage = () => {
         statusMessage.textContent = '';
-      }
+      };
 
       const formData = new FormData(item);
       let body = {};
