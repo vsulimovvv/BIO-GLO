@@ -257,8 +257,6 @@ const calculate = () => {
       let secondWellDiameterCounter = 0;
       let secondWellRingsCounter = 0;
 
-
-
       if (myonoffswitch.checked) { //одно
         price = 10000;
         typeOfSeptic.value = 1;
@@ -271,53 +269,37 @@ const calculate = () => {
       }
       // наличие днища
       if (myonoffswitch.checked && myonoffswitchTwo.checked) { // если есть
-        // totalValue;
         septicCounter = 1000;
         bottomAvailability.value = 'yes';
       }
       if (!myonoffswitch.checked && !myonoffswitchTwo.checked) { // если нет
-        // totalValue;
         septicCounter = 0;
         bottomAvailability.value = 'no';
       }
       if (!myonoffswitch.checked && myonoffswitchTwo.checked) { // если есть
-        // totalValue;
         septicCounter = 2000;
         bottomAvailability.value = 'yes';
       }
       // диаметр
       if (diameterValue === 2) {
-        // totalValue = (totalValue / 10) * 20;
-        // let twentyPercent = (totalValue - 1) / 20;
-        totalValue += (price / 100) * 20;
-        firstWellDiameterCounter = totalValue;
+        firstWellDiameterCounter = Math.ceil((price / 100) * 20);
       }
       // если 2 или 3 кольа
       if (quantityRingsValue === 2) {
-        totalValue += (price / 100) * 30;
-        // (totalValue / 10) * 30;
-        firstWellRingsCounter = totalValue;
+        firstWellRingsCounter += Math.ceil((price / 100) * 30);
       } else if (quantityRingsValue === 3) {
-        totalValue += (price / 100) * 50;
-        // (totalValue / 10) * 50;
-        firstWellRingsCounter = totalValue;
+        firstWellRingsCounter += Math.ceil((price / 100) * 50);
       }
       if (!myonoffswitch.checked && diameterSecondValue === 2) {
-        totalValue += (price / 100) * 20;
-        // (totalValue / 100) * 20;
-        secondWellDiameterCounter = totalValue;
+        secondWellDiameterCounter += Math.ceil((price / 100) * 20);
       }
       if (!myonoffswitch.checked && quantityRingsSecondValue === 2) {
-        totalValue += (price / 100) * 30;
-        // (totalValue / 100) * 30;
-        firstWellRingsCounterTwo = totalValue;
+        firstWellRingsCounterTwo += Math.ceil((price / 100) * 30);
       } else if (!myonoffswitch.checked && quantityRingsSecondValue === 3) {
-        totalValue += (price / 100) * 50;
-        // (totalValue / 100) * 50;
-        secondWellRingsCounter = totalValue;
+        secondWellRingsCounter += Math.ceil((price / 100) * 50);
       }
       // общая цена
-      total.value = price + totalValue + septicCounter + firstWellDiameterCounter + firstWellRingsCounter + secondWellDiameterCounter + secondWellRingsCounter;
+      total.value = price + septicCounter + firstWellDiameterCounter + firstWellRingsCounter + secondWellDiameterCounter + secondWellRingsCounter;
     }
 
     constructBtn[0].addEventListener('click', countSum);
