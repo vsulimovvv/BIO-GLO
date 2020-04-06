@@ -4,52 +4,24 @@ const calculate = () => {
     const accordionCalc = document.querySelector('#accordion'),
       constructBtn = accordionCalc.querySelectorAll('.construct-btn'),
       panelCollapse = accordionCalc.querySelectorAll('.panel-collapse'),
-      panelHeader = accordionCalc.querySelectorAll('.panel-heading'),
-      collapseOne = accordionCalc.querySelector('#collapseOne'),
-      collapseTwo = accordionCalc.querySelector('#collapseTwo'),
-      collapseThree = accordionCalc.querySelector('#collapseThree'),
-      collapseFour = accordionCalc.querySelector('#collapseFour');
+      panelHeader = accordionCalc.querySelectorAll('.panel-heading');
 
-    // кнопка следующий шаг, нужно переделать
-    const nextStep1 = () => {
-      for (let i = 0; i < constructBtn.length; i++) {
-        constructBtn[0].addEventListener('click', event => {
-          collapseOne.classList.remove('in');
-          collapseTwo.classList.add('in');
+    // кнопка следующий шаг
+    const nextStep = () => {
+      let currentPanel = 0;
+      constructBtn.forEach(item => {
+        item.addEventListener('click', () => {
+          panelCollapse[currentPanel].classList.remove('in');
+          currentPanel++;
+          if (currentPanel >= panelCollapse.length) {
+            currentPanel = 0;
+          }
+          panelCollapse[currentPanel].classList.add('in');
         });
-      }
+      });
     };
-    nextStep1();
+    nextStep();
 
-    const nextStep2 = () => {
-      for (let i = 0; i < constructBtn.length; i++) {
-        constructBtn[1].addEventListener('click', event => {
-          collapseTwo.classList.remove('in');
-          collapseThree.classList.add('in');
-        });
-      }
-    };
-    nextStep2();
-
-    const nextStep3 = () => {
-      for (let i = 0; i < constructBtn.length; i++) {
-        constructBtn[2].addEventListener('click', event => {
-          collapseThree.classList.remove('in');
-          collapseFour.classList.add('in');
-        });
-      }
-    };
-    nextStep3();
-
-    const nextStep4 = () => {
-      for (let i = 0; i < constructBtn.length; i++) {
-        constructBtn[3].addEventListener('click', event => {
-          collapseFour.classList.remove('in');
-          collapseOne.classList.add('in');
-        });
-      }
-    };
-    nextStep4();
 
     // аккордеон кальулятор
     const toggleCalc = () => {
