@@ -21,7 +21,7 @@ const calculate = () => {
           panelCollapse[i].classList.toggle('in');
         });
       };
-    };проект готов
+    };
     toggleCalc();
 
     const nextStep1 = () => {
