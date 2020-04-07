@@ -1,30 +1,16 @@
 const calculate = () => {
   // калькулятор-аккордеон
-  const calculatorAcc = () => {
+   const calculatorAcc = () => {
     const accordionCalc = document.querySelector('#accordion'),
       constructBtn = accordionCalc.querySelectorAll('.construct-btn'),
       panelCollapse = accordionCalc.querySelectorAll('.panel-collapse'),
-      panelHeader = accordionCalc.querySelectorAll('.panel-heading');
+      panelHeader = accordionCalc.querySelectorAll('.panel-heading'),
+      collapseOne = accordionCalc.querySelector('#collapseOne'),
+      collapseTwo = accordionCalc.querySelector('#collapseTwo'),
+      collapseThree = accordionCalc.querySelector('#collapseThree'),
+      collapseFour = accordionCalc.querySelector('#collapseFour');
 
     // кнопка следующий шаг
-    const nextStep = () => {
-      let currentPanel = 0;
-      constructBtn.forEach(item => {
-        item.addEventListener('click', (event) => {
-          event.preventDefault();
-          panelCollapse[currentPanel].classList.remove('in');
-          currentPanel++;
-          if (currentPanel >= panelCollapse.length) {
-            currentPanel = 0;
-          }
-          panelCollapse[currentPanel].classList.add('in');
-        });
-      });
-    };
-    nextStep();
-
-
-    // аккордеон кальулятор
     const toggleCalc = () => {
       for (let i = 0; i < panelHeader.length; i++) {
         panelHeader[i].addEventListener('click', event => {
@@ -34,11 +20,51 @@ const calculate = () => {
           }
           panelCollapse[i].classList.toggle('in');
         });
-      }
+      };
     };
     toggleCalc();
-  };
 
+    const nextStep1 = () => {
+      for (let i = 0; i < constructBtn.length; i++) {
+        constructBtn[0].addEventListener('click', event => {
+          event.preventDefault();
+          collapseOne.classList.remove('in')
+          collapseTwo.classList.add('in');
+        });
+      };
+    };
+    nextStep1();
+    const nextStep2 = () => {
+      for (let i = 0; i < constructBtn.length; i++) {
+        constructBtn[1].addEventListener('click', event => {
+          event.preventDefault();
+          collapseTwo.classList.remove('in')
+          collapseThree.classList.add('in');
+        });
+      };
+    };
+    nextStep2();
+    const nextStep3 = () => {
+      for (let i = 0; i < constructBtn.length; i++) {
+        constructBtn[2].addEventListener('click', event => {
+          event.preventDefault();
+          collapseThree.classList.remove('in')
+          collapseFour.classList.add('in');
+        });
+      };
+    };
+    nextStep3();
+    const nextStep4 = () => {
+      for (let i = 0; i < constructBtn.length; i++) {
+        constructBtn[3].addEventListener('click', event => {
+          event.preventDefault();
+          collapseFour.classList.remove('in')
+          collapseOne.classList.add('in');
+        });
+      };
+    };
+    nextStep4();
+  };
   calculatorAcc();
 
   // подсчет то, что выбирает пользователь
